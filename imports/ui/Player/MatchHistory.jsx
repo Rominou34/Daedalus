@@ -35,22 +35,12 @@ class MatchHistory extends React.Component {
   */
   renderMatches(p_id) {
     p_id = Number(p_id);
-    var pMatches = MatchShort.find({}).fetch();
-    console.log(pMatches);
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
     console.log(pMatches);
     console.log(pMatches.length);
     return pMatches.map((match) => (
       <MatchItem key={match._id} matchItem={match} />
     ));
-  }
-
-  test() {
-	console.log("Test");
-	console.log(MatchShort.find().fetch());
-	console.log(this.props.matchshort);
-	console.log("Fin du test");
-    return;
   }
 
   test_bis() {
@@ -84,7 +74,11 @@ class MatchHistory extends React.Component {
           console.log(results.data.result.matches);
           var total_matches = results.data.result.matches.length;
           for(var i=0; i < results.data.result.matches.length; i++) {
-            MatchShort.insert(results.data.result.matches[i]);
+            if(MatchHistory.searchMatch(results.data.result.matches[i].match_id) == 0) {
+              MatchShort.insert(results.data.result.matches[i]);
+            } else {
+              console.log("Match "+results.data.result.matches[i].match_id+" already saved");
+            }
             MatchHistory.saveMatch(results.data.result.matches[i].match_id);
             console.log(i + " - Match " + results.data.result.matches[i].match_id + " saved");
           }
@@ -105,7 +99,7 @@ class MatchHistory extends React.Component {
   * This function is used when saving matches into the database so we check if they're already there,
   * in order to not have duplicates
   */
-  searchMatch(m_id) {
+  static searchMatch(m_id) {
     return MatchShort.find({match_id: m_id}).fetch().length;
   }
 
@@ -151,9 +145,7 @@ class MatchHistory extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.test()}
         <h1>Matches list ( {this.props.params.player_id} ) - {this.countMatches(this.props.params.player_id)}</h1>
-        {this.searchMatch(2938656187)}
         <div>
           <button type="submit" onClick={() => { this.parseMatches(this.props.params.player_id) }}>Parse Matches</button>
         </div>
