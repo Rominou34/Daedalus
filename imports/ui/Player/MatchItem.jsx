@@ -9,21 +9,25 @@ export default class MatchItem extends Component {
       return "Dire victory";
     }
   }
+
+  matchUrl() {
+    return "/matches/"+this.props.matchItem.match_id;
+  }
+
   render() {
     return (
-      <div className="match-item">
-        <h2>{this.props.matchItem.result.match_id}</h2>
-        <p>{this.displayWinner()}</p>
-      </div>
+      <a href={this.matchUrl()} className="match-item">
+        <p>{this.props.matchItem.match_id}</p>
+      </a>
     );
   }
-  render() {
-    return (
-      <div className="match-item">
-        <p>{this.props.matchItem.match_id}</p>
-      </div>
-    )
-  }
+  // render() {
+  //   return (
+  //     <div className="match-item">
+  //       <p>{this.props.matchItem.match_id}</p>
+  //     </div>
+  //   )
+  // }
 }
 
 MatchItem.propTypes = {

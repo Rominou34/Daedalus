@@ -7,6 +7,7 @@ import MatchItem from '../imports/ui/Player/MatchItem.jsx';
 import Match from '../imports/ui/Match/Match.jsx';
 import App from '../imports/ui/Elements/App.jsx';
 import Home from '../imports/ui/Elements/Index.jsx';
+import About from '../imports/ui/Elements/About.jsx';
 
 Meteor.subscribe("matches");
 Meteor.subscribe("matchshort");
@@ -27,6 +28,7 @@ export const renderRoutes = () => (
       <IndexRoute component={ Home } />
         <Route path="players/:player_id" component={MatchHistory}/>
         <Route path="matches/:match_id" component={Match}/>
+        <Route path="about" component={About}></Route>
     </Route>
   </Router>
 );

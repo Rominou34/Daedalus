@@ -79,7 +79,7 @@ class MatchHistory extends React.Component {
             } else {
               console.log("Match "+results.data.result.matches[i].match_id+" already saved");
             }
-            MatchHistory.saveMatch(results.data.result.matches[i].match_id);
+            //MatchHistory.saveMatch(results.data.result.matches[i].match_id);
             console.log(i + " - Match " + results.data.result.matches[i].match_id + " saved");
           }
           return;
@@ -157,9 +157,9 @@ class MatchHistory extends React.Component {
   }
 }
 
- MatchHistory.propTypes = {
+MatchHistory.propTypes = {
    matchshort: PropTypes.array.isRequired,
- };
+};
 
 export default createContainer(() => {
     return {

@@ -38,7 +38,6 @@ body {
   max-width: 600px;
   margin: 0 auto;
   min-height: 100%;
-  background: #181818;
 }
 
 /*********
@@ -106,6 +105,8 @@ li {
 .match-item {
   background-color: #242424;
   color: #fff;
+  display: block;
+  text-decoration: none;
   height: 80px;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
@@ -118,6 +119,65 @@ li {
 .match-item p:first-child {
   font-size: 24px;
   padding: 4px;
+}
+
+/********
+* MATCH *
+********/
+
+.match-infos-container {
+  background-color: #181818;
+  margin: 24px auto;
+}
+
+.match-infos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 12px auto;
+  padding: 12px;
+}
+
+.match-infos div {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.match-infos div:first-child {
+  font-size: 20px;
+  flex-grow: 2;
+}
+
+/*
+*** MATCH SCORE ***
+*/
+
+.match-score div:first-child {
+  display: flex;
+  width: 100%;
+  font-size: 24px;
+  justify-content: center;
+}
+
+.match-score div span {
+  margin: 0 24px;
+}
+
+.match-score div .radiant-win {
+  color: green;
+}
+
+.match-score div .dire-win {
+  color: red;
+}
+
+.match-duration {
+  display: block;
+  margin: auto;
+  color: #888;
+  text-align: center;
+  font-size: 18px;
 }
 
 @media (max-width: 600px) {
