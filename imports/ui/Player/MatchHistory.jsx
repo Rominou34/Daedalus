@@ -34,6 +34,7 @@ class MatchHistory extends React.Component {
   * Displays the list of all the matches played by the gamer saved in the database
   */
   renderMatches(p_id) {
+    console.log(this.props.playerMatches);
     p_id = Number(p_id);
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
     console.log(pMatches);
@@ -94,6 +95,25 @@ class MatchHistory extends React.Component {
     });
   }
 
+  saveAllMatches(player_id) {
+    Meteor.apply("getMatchHistory", [player_id],
+      function(error, results) {
+        if(results) {
+          var total_matches = results.data.result.matches.length;
+          console.log(results.data.result.matches);
+          for(var i=0; i < results.data.result.matches.length; i++) {
+            Meteor.apply("getMatchDetails", [results.data.result.matches[i].match_id],
+              function(error, res) {
+                console.log(res.data); //results.data should be a JSON object
+                Matches.insert(res.data);
+                console.log("Match " + res.data.result.match_id + " saved into the database");
+              }
+            );
+          }
+        }
+      });
+  }
+
   /*
   * Counts the number of times a match is registered in the database
   * This function is used when saving matches into the database so we check if they're already there,
@@ -149,6 +169,7 @@ class MatchHistory extends React.Component {
         <h1>Matches list ( {this.props.playerId} ) - {this.countMatches(this.props.playerId)}</h1>
         <div>
           <button type="submit" onClick={() => { this.parseMatches(this.props.playerId) }}>Parse Matches</button>
+          <button type="submit" onClick={() => { this.saveAllMatches(this.props.playerId) }}>Save Matches</button>
         </div>
         <div>
           {this.renderMatches(this.props.playerId)}
@@ -164,6 +185,6 @@ MatchHistory.propTypes = {
 
 export default createContainer(() => {
     return {
-      matchshort: MatchShort.find({}).fetch()
+      matchshort: MatchShort.find({}).fetch(),
     };
 }, MatchHistory);
