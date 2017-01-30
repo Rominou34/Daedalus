@@ -101,17 +101,18 @@ class MatchHistory extends React.Component {
         if(results) {
           var total_matches = results.data.result.matches.length;
           console.log(results.data.result.matches);
-          for(var i=0; i < results.data.result.matches.length; i++) {
-            Meteor.apply("getMatchDetails", [results.data.result.matches[i].match_id],
-              function(error, res) {
-                console.log(res.data); //results.data should be a JSON object
-                Matches.insert(res.data);
-                console.log("Match " + res.data.result.match_id + " saved into the database");
+          Meteor.apply("saveMatchDetails", [results.data.result.matches[0].match_id],
+            function(error, res) {
+                if(res) {
+                  console.log(res);
+                } else {
+                  console.log(er);
+                }
               }
             );
           }
         }
-      });
+      );
   }
 
   /*

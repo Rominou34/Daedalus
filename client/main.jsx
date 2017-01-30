@@ -10,8 +10,11 @@ import App from '../imports/ui/Elements/App.jsx';
 import Home from '../imports/ui/Elements/Index.jsx';
 import About from '../imports/ui/Elements/About.jsx';
 
-Meteor.subscribe("matches");
-Meteor.subscribe("matchshort");
+// import { Matches } from '../imports/api/Matches.js';
+// import { MatchShort } from '../imports/api/MatchShort.js';
+//
+// Meteor.subscribe("matches");
+// Meteor.subscribe("matchshort");
 
 // export const renderRoutes = () => (
 //   <Router history={browserHistory}>

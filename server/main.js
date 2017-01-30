@@ -1,15 +1,15 @@
 import { Meteor } from 'meteor/meteor';
-import '../imports/api/Matches.js';
+import { Matches } from '../imports/api/Matches.js';
 import '../imports/api/MatchShort.js';
 
 Meteor.startup(() => {
   //code to run on server at startup
-  Meteor.publish("matches", function () {
-    return Matches.find();
-  });
-  Meteor.publish("matchshort", function () {
-    return MatchShort.find();
-  });
+  // Meteor.publish("matches", function () {
+  //   return Matches.find();
+  // });
+  // Meteor.publish("matchshort", function () {
+  //   return MatchShort.find();
+  // });
 });
 
 Meteor.methods({
@@ -42,6 +42,18 @@ Meteor.methods({
     } catch (er) {
       // Got a network error, time-out or HTTP error in the 400 or 500 range.
       return er;
+    }
+  },
+
+  saveMatchDetails: function(match_id) {
+    var api = Meteor.settings.apiKey;
+    try {
+      r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id="+match_id+"&key="+api);
+      Matches.insert(r.data);
+      return "Match "+match_id+" added to the database";
+    } catch (er) {
+      // Got a network error, time-out or HTTP error in the 400 or 500 range.
+      return new Meteor.Error("test");
     }
   },
 
