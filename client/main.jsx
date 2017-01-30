@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import MatchHistory from '../imports/ui/Player/MatchHistory.jsx';
 import MatchItem from '../imports/ui/Player/MatchItem.jsx';
+import Player from '../imports/ui/Player/Player.jsx';
 import Match from '../imports/ui/Match/Match.jsx';
 import App from '../imports/ui/Elements/App.jsx';
 import Home from '../imports/ui/Elements/Index.jsx';
@@ -26,7 +27,7 @@ export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={ Home } />
-        <Route path="players/:player_id" component={MatchHistory}/>
+        <Route path="players/:player_id" component={Player}/>
         <Route path="matches/:match_id" component={Match}/>
         <Route path="about" component={About}></Route>
     </Route>

@@ -145,12 +145,13 @@ class MatchHistory extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>Matches list ( {this.props.params.player_id} ) - {this.countMatches(this.props.params.player_id)}</h1>
+        <h1>{this.props.playerId}</h1>
+        <h1>Matches list ( {this.props.playerId} ) - {this.countMatches(this.props.playerId)}</h1>
         <div>
-          <button type="submit" onClick={() => { this.parseMatches(this.props.params.player_id) }}>Parse Matches</button>
+          <button type="submit" onClick={() => { this.parseMatches(this.props.playerId) }}>Parse Matches</button>
         </div>
         <div>
-          {this.renderMatches(this.props.params.player_id)}
+          {this.renderMatches(this.props.playerId)}
         </div>
       </div>
     );
