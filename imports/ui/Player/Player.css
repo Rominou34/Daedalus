@@ -1,0 +1,29 @@
+/****************
+* MATCH HISTORY *
+****************/
+
+.match-item {
+  background-color: #242424;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  height: 80px;
+  margin: 2px auto;
+  width: 100%;
+  box-sizing: border-box;
+  border-left: 8px solid #6d6d6d;
+  padding: 12px;
+}
+
+.match-item p:first-child {
+  font-size: 24px;
+  padding: 4px;
+}
+
+.match-item[data-win="victory"] {
+  border-left-color: #2e8c2e;
+}
+
+.match-item[data-win="defeat"] {
+  border-left-color: #8c2e2e;
+}

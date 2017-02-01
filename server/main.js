@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Matches } from '../imports/api/Matches.js';
-import '../imports/api/MatchShort.js';
+import { MatchShort } from '../imports/api/MatchShort.js';
 
 Meteor.startup(() => {
   //code to run on server at startup

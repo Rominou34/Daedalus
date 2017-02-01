@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import MatchHistory from './MatchHistory.jsx';
+import './Player.css';
 
 import { Matches } from '../../api/Matches.js';
 import { MatchShort } from '../../api/MatchShort.js';

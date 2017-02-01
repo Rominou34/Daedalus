@@ -37,10 +37,11 @@ class MatchHistory extends React.Component {
     console.log(this.props.playerMatches);
     p_id = Number(p_id);
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
+    var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
     console.log(pMatches);
     console.log(pMatches.length);
     return pMatches.map((match) => (
-      <MatchItem key={match._id} matchItem={match} />
+      <MatchItem key={match._id} matchItem={match} playerId={this.props.playerId} />
     ));
   }
 
