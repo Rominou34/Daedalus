@@ -102,6 +102,27 @@ export default class MatchItem extends Component {
     }
   }
 
+  static getHeroId(m, pl_id) {
+    var p_id = Number(pl_id);
+    if(m) {
+      // We look into what team the player was
+      var playerList = m.result.players;
+      console.log(playerList);
+      var playerAssists = 0;
+      for(var i=0; i<playerList.length; i++) {
+        if(playerList[i].account_id == p_id) {
+          console.log(playerList[i].hero_id);
+          return playerList[i].hero_id;
+        }
+      }
+    }
+  }
+
+  getHeroPic(m, pl_id) {
+    var p_id = Number(pl_id);
+    return "/heroes/"+MatchItem.getHeroId(m, pl_id)+"/icon.jpg";
+  }
+
   matchUrl() {
     return "/matches/"+this.props.matchItem.match_id;
   }
@@ -113,13 +134,19 @@ export default class MatchItem extends Component {
     console.log(match);
     return (
       <a href={this.matchUrl()} className="match-item" data-win={this.getWinner(this.props.matchItem.match_id, match)}>
-        <p>{this.getWinner(this.props.matchItem.match_id, match)}</p>
-        <p>{this.props.matchItem.match_id}</p>
-        <p>
-          <span>{this.getPlayerKills(match)}</span> /
-          <span>{this.getPlayerDeaths(match)}</span> /
-          <span>{this.getPlayerAssists(match)}</span>
-        </p>
+        <img src={this.getHeroPic(match, this.props.playerId)} className="hero-icon"/>
+        <div>
+          <p>{this.getWinner(this.props.matchItem.match_id, match)}</p>
+          <p>{this.props.matchItem.match_id}</p>
+        </div>
+        <div>
+          <p>
+            <span>{this.getPlayerKills(match)}</span> /
+            <span>{this.getPlayerDeaths(match)}</span> /
+            <span>{this.getPlayerAssists(match)}</span>
+            <span>Hero: {MatchItem.getHeroId(match, this.props.playerId)}</span>
+          </p>
+        </div>
       </a>
     );
   }
