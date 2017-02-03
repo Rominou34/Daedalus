@@ -124,7 +124,7 @@ export default class MatchItem extends Component {
   }
 
   matchUrl() {
-    return "/matches/"+this.props.matchItem.match_id;
+    return "/matches/"+this.props.matchItem.result.match_id;
   }
 
   render() {
@@ -139,10 +139,10 @@ export default class MatchItem extends Component {
           <img src={this.getHeroPic(this.props.matchItem, this.props.playerId)} className="hero-icon"/>
         </td>
         <td className="match-id-container">
-          <a href={this.matchUrl()} data-win={this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}>
+          <a href={this.matchUrl()}>
             <div>
-              <p>{this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}</p>
-              <p>{this.props.matchItem.result.match_id}</p>
+              <p className="link">{this.props.matchItem.result.match_id}</p>
+              <p className="winner" data-win={this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}>{this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}</p>
             </div>
           </a>
         </td>
@@ -152,7 +152,6 @@ export default class MatchItem extends Component {
               <span>{this.getPlayerKills(this.props.matchItem)}</span> /
               <span>{this.getPlayerDeaths(this.props.matchItem)}</span> /
               <span>{this.getPlayerAssists(this.props.matchItem)}</span>
-              <span>Hero: {MatchItem.getHeroId(this.props.matchItem, this.props.playerId)}</span>
             </p>
           </div>
         </td>

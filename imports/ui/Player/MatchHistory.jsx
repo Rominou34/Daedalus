@@ -38,8 +38,8 @@ class MatchHistory extends React.Component {
     p_id = Number(p_id);
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
-    var pMatches = Matches.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
-    var pMatches = Matches.find().fetch();
+    var pMatches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}, {sort: {'result.match_id': -1}}).fetch();
+    //var pMatches = Matches.find().fetch();
     console.log(pMatches);
     console.log(pMatches.length);
     return pMatches.map((match) => (
@@ -184,7 +184,6 @@ class MatchHistory extends React.Component {
         <h1>Matches list ( {this.props.playerId} ) - {this.countMatches(this.props.playerId)}</h1>
         <div>
           <button type="submit" onClick={() => { this.parseMatches(this.props.playerId) }}>Parse Matches</button>
-          <button type="submit" onClick={() => { this.saveAllMatches(this.props.playerId) }}>Save Matches</button>
         </div>
         <table className="match-history">
           <tbody>

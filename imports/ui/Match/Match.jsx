@@ -16,24 +16,24 @@ class Match extends React.Component {
     };
   }
 
-  static parseMatch(match_id) {
-     Meteor.apply("getMatchDetails", [match_id],
-       function(error, results) {
-         if(results) {
-           console.log(results);
-           if(results.statusCode == 503) {
-             console.log("The Steam Dota 2 API is currently unavailable");
-             return;
-           }
-         //console.log(results.data); //results.data should be a JSON object
-           Matches.insert(results.data);
-           console.log("Match " + match_id + " saved into the database");
-           return;
-         } else {
-           console.log(error);
-         }
-     });
-  }
+  // static parseMatch(match_id) {
+  //    Meteor.apply("getMatchDetails", [match_id],
+  //      function(error, results) {
+  //        if(results) {
+  //          console.log(results);
+  //          if(results.statusCode == 503) {
+  //            console.log("The Steam Dota 2 API is currently unavailable");
+  //            return;
+  //          }
+  //        //console.log(results.data); //results.data should be a JSON object
+  //          Matches.insert(results.data);
+  //          console.log("Match " + match_id + " saved into the database");
+  //          return;
+  //        } else {
+  //          console.log(error);
+  //        }
+  //    });
+  // }
 
   /*
   * This function looks for the match inside the database
@@ -41,20 +41,20 @@ class Match extends React.Component {
   * NEEDS TO BE CHANGED BECAUSE IT ACTUALLY REDOWNLOADS THE MATCH EVERY TIME
   * ( The function is too fast so it asks Steam API before having finished lookingin DB )
   */
-  checkMatch(match_id) {
-    console.log("Searching for match...");
-    var m_id = Number(match_id);
-    if(!this.state.matchFound || !this.state.matchParsed) {
-      var match= Matches.findOne({'result.match_id': m_id});
-      if(match) {
-        this.setState({matchFound: true});
-      } else {
-        console.log("Match not found, requesting the Steam API");
-        Match.parseMatch(m_id);
-      }
-    }
-    return;
-  }
+  // checkMatch(match_id) {
+  //   console.log("Searching for match...");
+  //   var m_id = Number(match_id);
+  //   if(!this.state.matchFound || !this.state.matchParsed) {
+  //     var match= Matches.findOne({'result.match_id': m_id});
+  //     if(match) {
+  //       this.setState({matchFound: true});
+  //     } else {
+  //       console.log("Match not found, requesting the Steam API");
+  //       Match.parseMatch(m_id);
+  //     }
+  //   }
+  //   return;
+  // }
 
   getMatchInfos(match_id) {
     var m_id = Number(match_id);
@@ -71,7 +71,7 @@ class Match extends React.Component {
   }
 
   componentDidMount() {
-    this.checkMatch(this.props.params.match_id);
+    //this.checkMatch(this.props.params.match_id);
   }
 
   getMatchScore(match_id) {
