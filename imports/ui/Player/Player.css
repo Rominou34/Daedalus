@@ -2,6 +2,11 @@
 * MATCH HISTORY *
 ****************/
 
+.match-history {
+  width: 100%;
+  max-width: 1000px;
+}
+
 .match-item {
   background-color: #242424;
   color: #fff;
@@ -15,11 +20,7 @@
   padding: 12px;
   justify-content: space-between;
   align-items: stretch;
-}
-
-.match-item p:first-child {
-  font-size: 24px;
-  padding: 4px;
+  table-layout: fixed;
 }
 
 .match-item[data-win="victory"] {
@@ -31,10 +32,10 @@
 }
 
 .match-item .hero-icon {
-  height: 40px;
+  height: 32px;
   display: block;
 }
 
-.match-item div {
-
+.match-item td {
+  width: 33%;
 }

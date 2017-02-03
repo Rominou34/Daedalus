@@ -38,6 +38,8 @@ class MatchHistory extends React.Component {
     p_id = Number(p_id);
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
     var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
+    var pMatches = Matches.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
+    var pMatches = Matches.find().fetch();
     console.log(pMatches);
     console.log(pMatches.length);
     return pMatches.map((match) => (
@@ -96,6 +98,17 @@ class MatchHistory extends React.Component {
     });
   }
 
+  parseMatches(player_id) {
+    Meteor.apply("saveMatchHistory", [player_id],
+      function(error, results) {
+        if(results) {
+          console.log(results);
+        } else {
+          console.log(error);
+        }
+      });
+    }
+
   saveAllMatches(player_id) {
     Meteor.apply("getMatchHistory", [player_id],
       function(error, results) {
@@ -148,7 +161,7 @@ class MatchHistory extends React.Component {
   */
   countMatches(p_id) {
     p_id = Number(p_id);
-    var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
+    var pMatches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}).fetch();
     return pMatches.length;
   }
 
@@ -173,9 +186,11 @@ class MatchHistory extends React.Component {
           <button type="submit" onClick={() => { this.parseMatches(this.props.playerId) }}>Parse Matches</button>
           <button type="submit" onClick={() => { this.saveAllMatches(this.props.playerId) }}>Save Matches</button>
         </div>
-        <div>
-          {this.renderMatches(this.props.playerId)}
-        </div>
+        <table className="match-history">
+          <tbody>
+            {this.renderMatches(this.props.playerId)}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -183,10 +198,12 @@ class MatchHistory extends React.Component {
 
 MatchHistory.propTypes = {
    matchshort: PropTypes.array.isRequired,
+   matches: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
     return {
       matchshort: MatchShort.find({}).fetch(),
+      matches: Matches.find({}).fetch()
     };
 }, MatchHistory);

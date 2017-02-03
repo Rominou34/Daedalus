@@ -34,6 +34,32 @@ Meteor.methods({
     }
   },
 
+  saveMatchHistory: function(player_id) {
+    var api = Meteor.settings.apiKey;
+    try {
+      r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id="+player_id+"&key="+api);
+      for(var i=0; i < r.data.result.matches.length; i++) {
+        //MatchShort.insert(r.data.result.matches[i]);
+        var match_check = Matches.find({'match_id': r.data.result.matches[i].match_id}).fetch().length;
+        if(match_check == 0) {
+          try {
+            re = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id="+r.data.result.matches[i].match_id+"&key="+api);
+            var m_check = Matches.find({'result.match_id': r.data.result.matches[i].match_id}).fetch().length;
+            if(m_check == 0) {
+              Matches.insert(re.data);
+            }
+          } catch (er) {
+            // Got a network error, time-out or HTTP error in the 400 or 500 range.
+          }
+        }
+      }
+      return r.data.result.matches.length+" matches added to the database";
+    } catch (er) {
+      // Got a network error, time-out or HTTP error in the 400 or 500 range.
+      return new Meteor.Error("Error in saveMatchHistory()");
+    }
+  },
+
   getMatchDetails: function(match_id) {
     var api = Meteor.settings.apiKey;
     try {
@@ -53,7 +79,7 @@ Meteor.methods({
       return "Match "+match_id+" added to the database";
     } catch (er) {
       // Got a network error, time-out or HTTP error in the 400 or 500 range.
-      return new Meteor.Error("test");
+      return new Meteor.Error("Error in saveMatchDetails()");
     }
   },
 

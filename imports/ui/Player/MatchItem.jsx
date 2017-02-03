@@ -20,12 +20,12 @@ export default class MatchItem extends Component {
   getWinner(match_id, m) {
     var m_id = Number(match_id);
     // var match = Matches.findOne({'result.match_id': m_id});
-    console.log(m);
+    //console.log(m);
     var p_id = this.props.playerId;
     if(m) {
       // We look into what team the player was
       var playerList = m.result.players;
-      console.log(playerList);
+      //console.log(playerList);
       var playerPos = null;
       for(var i=0; i<playerList.length; i++) {
         if(playerList[i].account_id == this.props.playerId) {
@@ -56,7 +56,7 @@ export default class MatchItem extends Component {
     if(m) {
       // We look into what team the player was
       var playerList = m.result.players;
-      console.log(playerList);
+      //console.log(playerList);
       var playerKills = 0;
       for(var i=0; i<playerList.length; i++) {
         if(playerList[i].account_id == this.props.playerId) {
@@ -73,7 +73,7 @@ export default class MatchItem extends Component {
     if(m) {
       // We look into what team the player was
       var playerList = m.result.players;
-      console.log(playerList);
+      //console.log(playerList);
       var playerDeaths = 0;
       for(var i=0; i<playerList.length; i++) {
         if(playerList[i].account_id == this.props.playerId) {
@@ -90,7 +90,7 @@ export default class MatchItem extends Component {
     if(m) {
       // We look into what team the player was
       var playerList = m.result.players;
-      console.log(playerList);
+      //console.log(playerList);
       var playerAssists = 0;
       for(var i=0; i<playerList.length; i++) {
         if(playerList[i].account_id == this.props.playerId) {
@@ -107,11 +107,11 @@ export default class MatchItem extends Component {
     if(m) {
       // We look into what team the player was
       var playerList = m.result.players;
-      console.log(playerList);
+      //console.log(playerList);
       var playerAssists = 0;
       for(var i=0; i<playerList.length; i++) {
         if(playerList[i].account_id == p_id) {
-          console.log(playerList[i].hero_id);
+          //console.log(playerList[i].hero_id);
           return playerList[i].hero_id;
         }
       }
@@ -120,7 +120,7 @@ export default class MatchItem extends Component {
 
   getHeroPic(m, pl_id) {
     var p_id = Number(pl_id);
-    return "/heroes/"+MatchItem.getHeroId(m, pl_id)+"/icon.jpg";
+    return "/heroes/"+MatchItem.getHeroId(m, pl_id)+"/hero_icon.jpg";
   }
 
   matchUrl() {
@@ -131,23 +131,32 @@ export default class MatchItem extends Component {
     // We get the match from the database here, instead of calling the database
     // in each function
     var match = Matches.findOne({'result.match_id': this.props.matchItem.match_id});
-    console.log(match);
+    //console.log(match);
+    //console.log(this.props.matchItem.result.match_id);
     return (
-      <a href={this.matchUrl()} className="match-item" data-win={this.getWinner(this.props.matchItem.match_id, match)}>
-        <img src={this.getHeroPic(match, this.props.playerId)} className="hero-icon"/>
-        <div>
-          <p>{this.getWinner(this.props.matchItem.match_id, match)}</p>
-          <p>{this.props.matchItem.match_id}</p>
-        </div>
-        <div>
-          <p>
-            <span>{this.getPlayerKills(match)}</span> /
-            <span>{this.getPlayerDeaths(match)}</span> /
-            <span>{this.getPlayerAssists(match)}</span>
-            <span>Hero: {MatchItem.getHeroId(match, this.props.playerId)}</span>
-          </p>
-        </div>
-      </a>
+      <tr className="match-item">
+        <td className="hero-icon-container">
+          <img src={this.getHeroPic(this.props.matchItem, this.props.playerId)} className="hero-icon"/>
+        </td>
+        <td className="match-id-container">
+          <a href={this.matchUrl()} data-win={this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}>
+            <div>
+              <p>{this.getWinner(this.props.matchItem.result.match_id, this.props.matchItem)}</p>
+              <p>{this.props.matchItem.result.match_id}</p>
+            </div>
+          </a>
+        </td>
+        <td className="kda-container">
+          <div>
+            <p>
+              <span>{this.getPlayerKills(this.props.matchItem)}</span> /
+              <span>{this.getPlayerDeaths(this.props.matchItem)}</span> /
+              <span>{this.getPlayerAssists(this.props.matchItem)}</span>
+              <span>Hero: {MatchItem.getHeroId(this.props.matchItem, this.props.playerId)}</span>
+            </p>
+          </div>
+        </td>
+      </tr>
     );
   }
   // render() {
