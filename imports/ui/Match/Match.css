@@ -1,0 +1,25 @@
+.player-list {
+  width: 100%;
+  margin: 24px 0;
+  background-color: #181818;
+}
+
+.hero-pic {
+  width: 120px;
+}
+
+.hero-pic img {
+  width: 64px;
+}
+
+.player td {
+  text-align: center;
+}
+
+.player .kills,
+.player .deaths,
+.player .assists,
+.player .gpm,
+.player .xpm {
+  width: 48px;
+}

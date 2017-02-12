@@ -69,6 +69,7 @@ class MatchHistory extends React.Component {
   /*
   * Requests the match history from the Steam API ( for now, only the last 100 ),
   * and saves them into the database ( only the ones with small details tho )
+  * DEPRECATED
   */
   parseMatches(player_id) {
     Meteor.apply("getMatchHistory", [player_id],
@@ -98,6 +99,10 @@ class MatchHistory extends React.Component {
     });
   }
 
+  /*
+  * Requests the server to parse the matches from the player and save them
+  * into the database
+  */
   parseMatches(player_id) {
     Meteor.apply("saveMatchHistory", [player_id],
       function(error, results) {
@@ -109,6 +114,7 @@ class MatchHistory extends React.Component {
       });
     }
 
+  // DEPRECATED
   saveAllMatches(player_id) {
     Meteor.apply("getMatchHistory", [player_id],
       function(error, results) {

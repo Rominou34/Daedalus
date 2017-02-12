@@ -3,6 +3,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import MatchInfos from './MatchInfos.jsx';
 import MatchScore from './MatchScore.jsx';
+import PlayerList from './PlayerList.jsx';
+import './Match.css';
 
 import { Matches } from '../../api/Matches.js';
 
@@ -56,17 +58,15 @@ class Match extends React.Component {
   //   return;
   // }
 
-  getMatchInfos(match_id) {
-    var m_id = Number(match_id);
-    //var match_details = Matches.find({result: {$elemMatch: {'match_id': m_id}}}).fetch();
+  getMatchInfos(match) {
+    //var m_id = Number(match_id);
+    //var match_details = Matches.find({'result.match_id': m_id}, {limit: 1}).fetch();
+    //var match_details = Matches.findOne({'result.match_id': m_id});
     //console.log(match_details);
-    var match_details = Matches.find({'result.match_id': m_id}, {limit: 1}).fetch();
-    var match_details = Matches.findOne({'result.match_id': m_id});
-    console.log(match_details);
     //var match_details = Matches.find().fetch();
     //console.log(match_details);
-    if(match_details) {
-      return <MatchInfos key={match_details._id} matchInfos={match_details} />;
+    if(match) {
+      return <MatchInfos key={match._id} matchInfos={match} />;
     }
   }
 
@@ -74,29 +74,46 @@ class Match extends React.Component {
     //this.checkMatch(this.props.params.match_id);
   }
 
-  getMatchScore(match_id) {
-    var m_id = Number(match_id);
-    //var match_details = Matches.find({result: {$elemMatch: {'match_id': m_id}}}).fetch();
+  getMatchScore(match) {
+    //var m_id = Number(match_id);
+    //var match_details = Matches.findOne({'result.match_id': m_id});
     //console.log(match_details);
-    var match_details = Matches.findOne({'result.match_id': m_id});
-    console.log(match_details);
     //var match_details = Matches.find().fetch();
     //console.log(match_details);
-    if(match_details) {
-      return <MatchScore key={match_details.result.match_id} matchScore={match_details} />;
+    if(match) {
+      return <MatchScore key={match.result.match_id} matchScore={match} />;
+    }
+  }
+
+  renderPlayerList(match, team) {
+    if(match) {
+      if(team) {
+        var players = match.result.players.slice(0,5);
+        var team_name = "radiant";
+      } else {
+        var players = match.result.players.slice(5,10);
+        var team_name = "dire";
+      }
+      console.log(players);
+      return <PlayerList key={team_name} playerList={players} />;
+      return players.map((player) => (
+        <PlayerItem key={player.hero_id} playerItem={player} />
+      ));
     }
   }
 
   render() {
+    var match = Matches.findOne({'result.match_id': Number(this.props.params.match_id)});
+    console.log(match);
     return (
       <div className="container">
         <div className="match-infos-container">
-          {this.getMatchInfos(this.props.params.match_id)}
+          {this.getMatchInfos(match)}
           <button type="submit" onClick={() => {Match.parseMatch(this.props.params.match_id)}}>Parse Match</button>
         </div>
-        {this.getMatchScore(this.props.params.match_id)}
-        <div>
-        </div>
+        {this.getMatchScore(match)}
+        {this.renderPlayerList(match, true)}
+        {this.renderPlayerList(match, false)}
       </div>
     );
   }
