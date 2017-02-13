@@ -2,7 +2,7 @@
   "name": "Daedalus",
   "private": true,
   "scripts": {
-    "start": "meteor --settings settings.json",
+    "start": "meteor",
     "m-start": "meteor --settings settings.json"
   },
   "dependencies": {
