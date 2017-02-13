@@ -52,7 +52,7 @@ No need to explain why you must create this file yourself, and why I haven't com
 The file must be created at the root of the project and have this structure:
 ```javascript
 {
-  "apiKey": "YOUR_API_KEY"
+  "api_key": "YOUR_API_KEY"
 }
 ```
 

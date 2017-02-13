@@ -24,7 +24,7 @@ Meteor.methods({
   },
 
   getMatchHistory: function(player_id) {
-    var api = Meteor.settings.apiKey;
+    var api = Meteor.settings.api_key;
     try {
       r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id="+player_id+"&key="+api);
       return r;
@@ -35,7 +35,7 @@ Meteor.methods({
   },
 
   saveMatchHistory: function(player_id) {
-    var api = Meteor.settings.apiKey;
+    var api = Meteor.settings.api_key;
     try {
       r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id="+player_id+"&key="+api);
       for(var i=0; i < r.data.result.matches.length; i++) {
@@ -61,7 +61,7 @@ Meteor.methods({
   },
 
   getMatchDetails: function(match_id) {
-    var api = Meteor.settings.apiKey;
+    var api = Meteor.settings.api_key;
     try {
       r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id="+match_id+"&key="+api);
       return r;
@@ -72,7 +72,7 @@ Meteor.methods({
   },
 
   saveMatchDetails: function(match_id) {
-    var api = Meteor.settings.apiKey;
+    var api = Meteor.settings.api_key;
     try {
       r = HTTP.call("GET", "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id="+match_id+"&key="+api);
       Matches.insert(r.data);
