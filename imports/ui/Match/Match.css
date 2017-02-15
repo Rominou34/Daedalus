@@ -1,25 +1,132 @@
+/*
+* MATCH INFOS
+*/
+
+.match-infos-container {
+  background-color: #1f2535;
+  margin: 24px auto;
+}
+
+.match-infos {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 12px auto;
+  padding: 12px;
+}
+
+.match-infos div {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.match-infos div:first-child {
+  font-size: 20px;
+  flex-grow: 2;
+}
+
+/*
+*** MATCH SCORE ***
+*/
+
+.match-score div:first-child {
+  display: flex;
+  width: 100%;
+  font-size: 24px;
+  justify-content: center;
+}
+
+.match-score div span {
+  margin: 0 24px;
+}
+
+.match-score div .radiant-win {
+  color: green;
+}
+
+.match-score div .dire-win {
+  color: #e03a3a;
+}
+
+.match-duration {
+  display: block;
+  margin: auto;
+  color: #888;
+  text-align: center;
+  font-size: 18px;
+}
+
+/*
+* PLAYER TABLE
+*/
+
+thead {
+  background-color: #1f2535;
+}
+
+th {
+  padding: 2px;
+  margin: 0;
+  height: 40px;
+}
+
+tbody tr {
+  height: 64px;
+}
+
+.player {
+  background-color: #292e38;
+}
+
+.player:nth-child(even) {
+  background-color: #23272f;
+}
+
 .player-list {
   width: 100%;
   margin: 24px 0;
-  background-color: #181818;
-}
-
-.hero-pic {
-  width: 120px;
-}
-
-.hero-pic img {
-  width: 64px;
 }
 
 .player td {
   text-align: center;
 }
 
+/*
+* PLAYER STATS
+*/
+
+/* HERO PIC */
+thead .hero-pic,
+.player .hero-pic {
+  width: 80px;
+}
+
+.hero-pic img {
+  width: 64px;
+}
+
+/* LEVEL */
+thead .level,
+.player .level {
+  width: 40px;
+}
+
+/* NET WORTH */
+thead .net-worth,
+.player .net-worth {
+  color: #d88c00;
+}
+.player .net-worth .tooltip {
+  display: none;
+}
+
+.player .net-worth:hover .tooltip {
+  display: block;
+}
+
 .player .kills,
 .player .deaths,
-.player .assists,
-.player .gpm,
-.player .xpm {
-  width: 48px;
+.player .assists {
+  width: 32px;
 }

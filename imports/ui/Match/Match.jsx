@@ -85,20 +85,27 @@ class Match extends React.Component {
     }
   }
 
+  countPlayers(match) {
+    if(match) {
+      return match.result.players.length;
+    }
+  }
+
   renderPlayerList(match, team) {
     if(match) {
       if(team) {
         var players = match.result.players.slice(0,5);
-        var team_name = "radiant";
+        var team_n = "Radiant";
       } else {
         var players = match.result.players.slice(5,10);
-        var team_name = "dire";
+        var team_n = "Dire";
       }
       console.log(players);
-      return <PlayerList key={team_name} playerList={players} />;
-      return players.map((player) => (
-        <PlayerItem key={player.hero_id} playerItem={player} />
-      ));
+      // When there is less than 10 players
+      if(!team && this.countPlayers(match) < 6) {
+        return;
+      }
+      return <PlayerList key={team_n} teamName={team_n} playerList={players} match={match}/>;
     }
   }
 

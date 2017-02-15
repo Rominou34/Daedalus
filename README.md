@@ -60,12 +60,6 @@ The file must be created at the root of the project and have this structure:
 
 When you run the project, don't forget to tell Meteor you want him to use the `settings.json` file.
 
-So either do this:
+So run the app like this:
 ```
 meteor --settings settings.json
-```
-
-Or, as the command is already written in the file `package.json`, you can also do:
-```
-npm start
-```

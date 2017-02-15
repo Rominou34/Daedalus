@@ -10,27 +10,30 @@ export default class PlayerList extends Component {
 
   renderPlayers() {
     return this.props.playerList.map((player) => (
-      <PlayerItem key={player.hero_id} playerItem={player} />
+      <PlayerItem key={player.hero_id} playerItem={player} match={this.props.match}/>
     ));
   }
 
   render() {
     return (
-      <table className="player-list">
+      <div><h2>{this.props.teamName}</h2>
+      <table className="player-list" cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
-            <th>Hero</th>
-            <th>Kills</th>
-            <th>Deaths</th>
-            <th>Assists</th>
-            <th>GPM</th>
-            <th>XPM</th>
+            <th className="hero-pic">Hero</th>
+            <th className="level">Level</th>
+            <th className="kills">K</th>
+            <th className="deaths">D</th>
+            <th className="assists">A</th>
+            <th className="net-worth">Gold</th>
+            <th className="gpm">GPM</th>
+            <th className="xpm">XPM</th>
           </tr>
         </thead>
         <tbody>
           {this.renderPlayers()}
         </tbody>
-      </table>
+      </table></div>
     );
   }
 }

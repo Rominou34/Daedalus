@@ -130,7 +130,7 @@ export default class MatchItem extends Component {
   render() {
     // We get the match from the database here, instead of calling the database
     // in each function
-    var match = Matches.findOne({'result.match_id': this.props.matchItem.match_id});
+    var match = this.props.matchItem;
     //console.log(match);
     //console.log(this.props.matchItem.result.match_id);
     return (
