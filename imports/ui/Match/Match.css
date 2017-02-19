@@ -42,11 +42,11 @@
 }
 
 .match-score div .radiant-win {
-  color: green;
+  color: #53cc45;
 }
 
 .match-score div .dire-win {
-  color: #e03a3a;
+  color: #cc4545;
 }
 
 .match-duration {
@@ -88,8 +88,18 @@ tbody tr {
   margin: 24px 0;
 }
 
-.player td {
-  text-align: center;
+.player td,
+thead th {
+  text-align: right;
+}
+
+thead .hero-pic,
+.player .hero-pic,
+thead .level,
+.player .level,
+thead .player-name,
+.player .player-name {
+  text-align: left;
 }
 
 /*
@@ -99,7 +109,8 @@ tbody tr {
 /* HERO PIC */
 thead .hero-pic,
 .player .hero-pic {
-  width: 80px;
+  width: 72px;
+  padding-left: 4px;
 }
 
 .hero-pic img {
@@ -109,14 +120,42 @@ thead .hero-pic,
 /* LEVEL */
 thead .level,
 .player .level {
-  width: 40px;
+  width: 36px;
+}
+
+/* PLAYER NAME */
+thead .player-name,
+.player .player-name {
+  width: 180px;
+}
+
+thead .player-name a,
+.player .player-name a {
+  color: #6faeed;
+  text-decoration: none;
+}
+
+thead .player-name a:hover,
+.player .player-name a:hover {
+  color: #0c5fb2;
+}
+
+/* KDA */
+thead .kills,
+.player .kills,
+thead .deaths,
+.player .deaths,
+thead .assists,
+.player .assists {
+  width: 28px !important;
 }
 
 /* NET WORTH */
 thead .net-worth,
 .player .net-worth {
-  color: #d88c00;
+  color: #e2bb1f;
 }
+
 .player .net-worth .tooltip {
   display: none;
 }
@@ -129,4 +168,23 @@ thead .net-worth,
 .player .deaths,
 .player .assists {
   width: 32px;
+}
+
+/* GPM / XPM */
+
+thead .gpm,
+.player .gpm {
+  color: #ffd989;
+}
+
+thead .xpm,
+.player .xpm {
+  color: #89c2ff;
+}
+
+/* BUILDINGS */
+
+thead .building,
+.player .building {
+  padding-right: 4px;
 }

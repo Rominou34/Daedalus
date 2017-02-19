@@ -19,11 +19,25 @@ class Player extends React.Component {
   }
 
   /*
+  * Converts the Dota 2 account id to the Steam id
+  * Dota 2 id is 32 bits while Steam id is 64 bits so we just convert it
+  */
+  getSteam64ID(account_id) {
+    var s_id = Number(account_id)+61197960265728;
+    var st_id = "";
+    st_id += "765" + s_id;
+    return st_id;
+  }
+
+  /*
   * Renders the component
   */
   render() {
     return (
-      <MatchHistory playerId={this.props.params.player_id} />
+      <div>
+        <span>Steam ID: {this.getSteam64ID(this.props.params.player_id)}</span>
+        <MatchHistory playerId={this.props.params.player_id} />
+      </div>
     );
   }
 }

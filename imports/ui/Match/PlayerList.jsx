@@ -21,13 +21,19 @@ export default class PlayerList extends Component {
         <thead>
           <tr>
             <th className="hero-pic">Hero</th>
-            <th className="level">Level</th>
+            <th className="level">LVL</th>
+            <th className="player-name">Player</th>
             <th className="kills">K</th>
             <th className="deaths">D</th>
             <th className="assists">A</th>
             <th className="net-worth">Gold</th>
             <th className="gpm">GPM</th>
             <th className="xpm">XPM</th>
+            <th className="lh">LH</th>
+            <th className="denies">DN</th>
+            <th className="dmg">DMG</th>
+            <th className="heal">HEAL</th>
+            <th className="building">BLD</th>
           </tr>
         </thead>
         <tbody>
