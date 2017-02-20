@@ -36,7 +36,7 @@
 */
 
 .match-item .hero-icon {
-  height: 32px;
+  height: 40px;
   display: block;
 }
 
@@ -72,4 +72,31 @@
 
 .match-item a:hover .link {
   color: #0c5fb2;
+}
+
+/* PAGE LINKS */
+.page-links {
+  width: 80%;
+  max-width: 240px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.page-links a {
+  flex-basis: 5%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: #14161c;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+  padding: 4px;
+  margin: 2%;
+  text-align: center;
+}
+
+.page-links a:hover {
+  background-color: #222530;
 }

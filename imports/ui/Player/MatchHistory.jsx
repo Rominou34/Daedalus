@@ -33,15 +33,7 @@ class MatchHistory extends React.Component {
   /*
   * Displays the list of all the matches played by the gamer saved in the database
   */
-  renderMatches(p_id) {
-    console.log(this.props.playerMatches);
-    p_id = Number(p_id);
-    var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}).fetch();
-    var pMatches = MatchShort.find({players: {$elemMatch: {'account_id': p_id}}}, {sort: {'match_id': -1}}).fetch();
-    var pMatches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}, {sort: {'result.match_id': -1}}).fetch();
-    //var pMatches = Matches.find().fetch();
-    console.log(pMatches);
-    console.log(pMatches.length);
+  renderMatches(pMatches) {
     return pMatches.map((match) => (
       <MatchItem key={match._id} matchItem={match} playerId={this.props.playerId} />
     ));
@@ -167,8 +159,8 @@ class MatchHistory extends React.Component {
   */
   countMatches(p_id) {
     p_id = Number(p_id);
-    var pMatches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}).fetch();
-    return pMatches.length;
+    var pMatches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}).count();
+    return pMatches;
   }
 
   /*
@@ -181,21 +173,64 @@ class MatchHistory extends React.Component {
   }
 
   /*
+  * Renders the links at the bottom of the match history
+  * allowing you to navigate through the pages to see
+  * the first 20 matches, the next 20, etc.
+  */
+  getPages(matches_count, p_id) {
+    var url = "/players/"+p_id+"/";
+    var ar = [];
+    /*
+    * We create an array will all the urls so we can
+    * use .map() on it
+    */
+    for(var i=0; (20*i)<matches_count; i++) {
+      var uri = url + (i+1);
+      // We create a JSON object for each page with the url
+      // and page number
+      var val = {"num": (i+1), "url": uri, "key": "page"+i};
+      ar.push(val);
+    }
+    console.log(ar);
+    return ar.map((val) => (
+      <a key={val.key} href={val.url}>{val.num}</a>
+    ));
+  }
+
+  /*
   * Renders the component
   */
   render() {
+    // We get the page number
+    var page = this.props.page;
+    if(this.props.page == undefined) {
+      page = 1;
+    }
+    var startMatch = (page*20)-20;
+    p_id = Number(this.props.playerId);
+
+    // We get the matches
+    var player_matches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}, {sort: {'result.match_id': -1}, skip: startMatch, limit: 20}).fetch();
+    console.log(player_matches);
+
+    // We count the number of total matches
+    var total_matches = Matches.find({'result.players': {$elemMatch: {'account_id': p_id}}}).count();
+    console.log(total_matches);
     return (
       <div className="container">
         <h1>{this.props.playerId}</h1>
-        <h1>Matches list ( {this.props.playerId} ) - {this.countMatches(this.props.playerId)}</h1>
+        <h1>Matches list ( {this.props.playerId} ) - {total_matches}</h1>
         <div>
           <button type="submit" onClick={() => { this.parseMatches(this.props.playerId) }}>Parse Matches</button>
         </div>
         <table className="match-history">
           <tbody>
-            {this.renderMatches(this.props.playerId)}
+            {this.renderMatches(player_matches)}
           </tbody>
         </table>
+        <div className="page-links">
+          {this.getPages(total_matches, this.props.playerId)}
+        </div>
       </div>
     );
   }

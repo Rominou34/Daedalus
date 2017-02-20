@@ -36,7 +36,7 @@ class Player extends React.Component {
     return (
       <div>
         <span>Steam ID: {this.getSteam64ID(this.props.params.player_id)}</span>
-        <MatchHistory playerId={this.props.params.player_id} />
+        <MatchHistory playerId={this.props.params.player_id} page={this.props.params.page}/>
       </div>
     );
   }

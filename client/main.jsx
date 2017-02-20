@@ -31,6 +31,7 @@ export const renderRoutes = () => (
     <Route path="/" component={App}>
       <IndexRoute component={ Home } />
         <Route path="players/:player_id" component={Player}/>
+        <Route path="players/:player_id/:page" component={Player}/>
         <Route path="matches/:match_id" component={Match}/>
         <Route path="about" component={About}></Route>
     </Route>

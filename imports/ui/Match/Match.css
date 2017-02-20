@@ -120,7 +120,8 @@ thead .hero-pic,
 /* LEVEL */
 thead .level,
 .player .level {
-  width: 36px;
+  width: 32px;
+  text-align: center;
 }
 
 /* PLAYER NAME */
